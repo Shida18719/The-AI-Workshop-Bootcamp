@@ -1,0 +1,29 @@
+{
+  "name": "T-SQL Bootcamp",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "workspace",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-mssql.mssql"],
+      "settings": {
+        "sqltools.connections": [
+          {
+            "name": "T-SQL Bootcamp DB",
+            "driver": "MSSQL",
+            "server": "db",
+            "port": 1433,
+            "database": "BootcampDB",
+            "username": "sa",
+            "password": "Bootcamp123!",
+            "trustServerCertificate": true
+          }
+        ]
+      }
+    }
+  },
+
+  "postCreateCommand": "sleep 20 && /opt/mssql-tools18/bin/sqlcmd -S db -U sa -P 'Bootcamp123!' -C -i seed.sql",
+  "forwardPorts": [1433]
+}
