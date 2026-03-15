@@ -1,16 +1,32 @@
 -- =============================================
 -- BootcampDB Seed Script
 -- NHS-inspired sample dataset for T-SQL training
+-- Safe to run multiple times
 -- =============================================
 
-CREATE DATABASE BootcampDB;
+-- Create database if it doesn't exist
+IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'BootcampDB')
+BEGIN
+    CREATE DATABASE BootcampDB;
+END
 GO
 
 USE BootcampDB;
 GO
 
 -- =============================================
--- TABLES
+-- DROP TABLES (safe to re-run)
+-- Must drop in reverse order due to foreign keys
+-- =============================================
+
+DROP TABLE IF EXISTS Observations;
+DROP TABLE IF EXISTS Admissions;
+DROP TABLE IF EXISTS Patients;
+DROP TABLE IF EXISTS Wards;
+GO
+
+-- =============================================
+-- CREATE TABLES
 -- =============================================
 
 CREATE TABLE Patients (
@@ -29,7 +45,7 @@ GO
 CREATE TABLE Wards (
     WardID          INT PRIMARY KEY IDENTITY(1,1),
     WardName        NVARCHAR(100) NOT NULL,
-    WardType        NVARCHAR(50),   -- e.g. Medical, Surgical, Virtual
+    WardType        NVARCHAR(50),
     Capacity        INT,
     Site            NVARCHAR(100)
 );
@@ -41,7 +57,7 @@ CREATE TABLE Admissions (
     WardID          INT REFERENCES Wards(WardID),
     AdmissionDate   DATETIME NOT NULL,
     DischargeDate   DATETIME,
-    AdmissionType   NVARCHAR(50),   -- Elective, Emergency, Transfer
+    AdmissionType   NVARCHAR(50),
     Diagnosis       NVARCHAR(200),
     DischargeReason NVARCHAR(100)
 );
@@ -51,7 +67,7 @@ CREATE TABLE Observations (
     ObservationID   INT PRIMARY KEY IDENTITY(1,1),
     AdmissionID     INT NOT NULL REFERENCES Admissions(AdmissionID),
     ObsDateTime     DATETIME NOT NULL,
-    ObsType         NVARCHAR(50),   -- BP, HeartRate, Temperature, SpO2
+    ObsType         NVARCHAR(50),
     ObsValue        NVARCHAR(20),
     RecordedBy      NVARCHAR(100)
 );
@@ -62,7 +78,7 @@ GO
 -- =============================================
 
 INSERT INTO Wards (WardName, WardType, Capacity, Site) VALUES
-('Ward A - General Medical',    'Medical',   28, NULL),
+('Ward A - General Medical',    'Medical',   28, 'Main Hospital'),
 ('Ward B - Cardiology',         'Medical',   20, 'Main Hospital'),
 ('Ward C - Surgical',           'Surgical',  24, 'Main Hospital'),
 ('Virtual Ward - Respiratory',  'Virtual',   50, 'Community'),
