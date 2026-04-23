@@ -20,42 +20,42 @@ GO
 -- -----------------------------------------------
 -- Task: Select only FirstName, LastName and DateOfBirth
 -- YOUR ANSWER:
-
+SELECT FirstName, LastName, DateOfBirth FROM Patients;
 
 -- -----------------------------------------------
 -- EXERCISE 3: Rename columns with aliases
 -- -----------------------------------------------
 -- Task: Select FirstName as "First Name", LastName as "Surname"
 -- YOUR ANSWER:
-
+SELECT FirstName AS "First Name", LastName AS "Surname" FROM Patients;
 
 -- -----------------------------------------------
 -- EXERCISE 4: Filter with WHERE
 -- -----------------------------------------------
 -- Task: Find all female patients
 -- YOUR ANSWER:
-
+SELECT * FROM Patients WHERE Gender = 'Female';
 
 -- -----------------------------------------------
 -- EXERCISE 5: Filter with AND
 -- -----------------------------------------------
 -- Task: Find all female patients registered with Dr. Ahmed
 -- YOUR ANSWER:
-
+Select * FROM Patients WHERE Gender = 'Female' AND RegisteredGP = 'Dr. Ahmed';
 
 -- -----------------------------------------------
 -- EXERCISE 6: Sort results
 -- -----------------------------------------------
 -- Task: List all patients ordered by LastName A-Z
 -- YOUR ANSWER:
-
+SELECT * FROM Patients ORDER BY LastName ASC;
 
 -- -----------------------------------------------
 -- EXERCISE 7: Limit rows
 -- -----------------------------------------------
 -- Task: Return only the first 5 patients (by PatientID)
 -- YOUR ANSWER:
-
+SELECT TOP 5 PatientID FROM Patients ORDER BY PatientID;
 
 -- -----------------------------------------------
 -- BONUS: Calculated column
@@ -64,6 +64,7 @@ GO
 -- Hint: Use + to concatenate strings, and add a space between them
 -- YOUR ANSWER:
 
+SELECT FirstName + ' ' + LastName AS FullName FROM Patients;
 
 -- =============================================
 -- ANSWERS (scroll down only after trying!)
