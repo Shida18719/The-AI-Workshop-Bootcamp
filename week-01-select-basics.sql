@@ -13,7 +13,9 @@ GO
 -- -----------------------------------------------
 -- Task: Select everything from the Patients table
 -- YOUR ANSWER:
- SELECT * FROM Patients;
+
+SELECT *
+FROM Patients;
 
 -- -----------------------------------------------
 -- EXERCISE 2: Specific columns
@@ -21,12 +23,18 @@ GO
 -- Task: Select only FirstName, LastName and DateOfBirth
 -- YOUR ANSWER:
 
-
+SELECT FirstName, LastName, DateOfBirth
+FROM Patients;
 -- -----------------------------------------------
 -- EXERCISE 3: Rename columns with aliases
 -- -----------------------------------------------
 -- Task: Select FirstName as "First Name", LastName as "Surname"
 -- YOUR ANSWER:
+
+SELECT 
+    FirstName AS "First Name", 
+    LastName AS "Surname"
+FROM Patients;
 
 
 -- -----------------------------------------------
@@ -35,6 +43,15 @@ GO
 -- Task: Find all female patients
 -- YOUR ANSWER:
 
+SELECT *
+FROM Patients
+WHERE Gender = 'Female';
+
+
+SELECT PatientID, NHSNumber
+    FROM Patients
+WHERE Gender = 'Female';
+
 
 -- -----------------------------------------------
 -- EXERCISE 5: Filter with AND
@@ -42,12 +59,19 @@ GO
 -- Task: Find all female patients registered with Dr. Ahmed
 -- YOUR ANSWER:
 
+SELECT *
+    FROM Patients
+WHERE Gender = 'Female' AND RegisteredGP = 'Dr Ahmed';
 
 -- -----------------------------------------------
 -- EXERCISE 6: Sort results
 -- -----------------------------------------------
 -- Task: List all patients ordered by LastName A-Z
 -- YOUR ANSWER:
+
+SELECT *
+FROM Patients
+ORDER BY LastName ASC;
 
 
 -- -----------------------------------------------
@@ -56,6 +80,9 @@ GO
 -- Task: Return only the first 5 patients (by PatientID)
 -- YOUR ANSWER:
 
+SELECT TOP 5 *
+FROM Patients
+ORDER BY PatientID;
 
 -- -----------------------------------------------
 -- BONUS: Calculated column
@@ -63,6 +90,10 @@ GO
 -- Task: Show each patient's full name as a single column called "FullName"
 -- Hint: Use + to concatenate strings, and add a space between them
 -- YOUR ANSWER:
+
+SELECT
+    FirstName + ' ' + LastName AS "FullName"
+    FROM Patients;
 
 
 -- =============================================
