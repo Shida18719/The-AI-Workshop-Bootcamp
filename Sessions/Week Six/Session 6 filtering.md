@@ -1,13 +1,13 @@
-# Session 04 — Filtering Data
+# Session 6 — Filtering Data
 ### WHERE, HAVING, and Filtering Strategies · Building Precise Analytical Queries
 
 > **Instructor:** Stephen  
 > **Format:** Live Online · SQL & AI Bootcamp  
-> **Pre-requisite:** Session 03 — Query Primer
+
 
 ---
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 By the end of this session, you will be able to:
 
@@ -20,10 +20,10 @@ By the end of this session, you will be able to:
 
 ---
 
-## 🏗️ Setup — Create Your Views
+## Setup — Create Your Views
 
-> 💡 **How this works:** Each view is built directly from hard-coded values — no tables needed.  
-> To change the data live, Stephen edits the values inside the view and runs `DROP VIEW` + `CREATE VIEW` again.  
+ **How this works:** Each view is built directly from hard-coded values — no tables needed.  
+> To change the data live, edit the values inside the view and runs `DROP VIEW` + `CREATE VIEW` again.  
 > Students re-run their queries and see results update immediately.
 
 ---
@@ -400,11 +400,11 @@ Once your view is created, write **three queries** against it that each use at l
 - `BETWEEN` or `IN`
 - `IS NULL` or `IS NOT NULL`
 
-Be ready to demo your view and queries to the group. 🚀
+Be ready to demo your view and queries to the group. 
 
 ---
 
-## 📝 Key Takeaways
+##  Key Takeaways
 
 - `WHERE` filters rows **before** grouping — it cannot use aggregate functions
 - `HAVING` filters groups **after** `GROUP BY` — it works on aggregated results only
@@ -416,7 +416,7 @@ Be ready to demo your view and queries to the group. 🚀
 
 ---
 
-## 📚 Further Reading
+##  Further Reading
 
 - *Learning SQL* — Alan Beaulieu, Chapter 4 (Filtering) & Chapter 8 (Grouping and Aggregates)
 - [SQL Server WHERE clause docs](https://learn.microsoft.com/en-us/sql/t-sql/queries/where-transact-sql)
