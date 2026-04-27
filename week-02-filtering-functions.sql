@@ -13,6 +13,9 @@ GO
 -- Hint: Use DATEDIFF(YEAR, DateOfBirth, GETDATE())
 -- YOUR ANSWER:
 
+SELECT FirstName, LastName,
+  DATEDIFF(YEAR, DateOfBirth, GETDATE()) AS Age
+FROM Patients;
 
 -- -----------------------------------------------
 -- EXERCISE 2: Filter by age
@@ -20,6 +23,9 @@ GO
 -- Task: Find all patients over 70 years old
 -- YOUR ANSWER:
 
+SELECT *
+  FROM patients
+  WHERE DATEDIFF(year, DateOfBirth, GETDATE()) > 70;
 
 -- -----------------------------------------------
 -- EXERCISE 3: NULL handling
@@ -28,13 +34,20 @@ GO
 -- (DischargeDate is NULL means still admitted)
 -- YOUR ANSWER:
 
+-- SELECT TOP 10 *
+-- FROM patients;
 
+SELECT *
+FROM Admissions
+WHERE DischargeDate IS NULL;
 -- -----------------------------------------------
 -- EXERCISE 4: COUNT
 -- -----------------------------------------------
 -- Task: How many patients are registered in total?
 -- YOUR ANSWER:
 
+SELECT COUNT (*) AS total_patients
+FROM patients;
 
 -- -----------------------------------------------
 -- EXERCISE 5: GROUP BY
@@ -42,6 +55,9 @@ GO
 -- Task: Count how many patients are registered with each GP
 -- YOUR ANSWER:
 
+SELECT RegisteredGP, COUNT (*) AS patients_reg_withGP
+FROM patients
+GROUP BY RegisteredGP;
 
 -- -----------------------------------------------
 -- EXERCISE 6: COUNT with GROUP BY on admissions
@@ -49,13 +65,20 @@ GO
 -- Task: How many admissions were Emergency vs Elective vs Transfer?
 -- YOUR ANSWER:
 
+SELECT AdmissionType, COUNT (*) AS admissionCount
+FROM Admissions
+GROUP BY AdmissionType;
 
 -- -----------------------------------------------
--- EXERCISE 7: HAVING
+-- EXERCISE 7: HAVING)
 -- -----------------------------------------------
 -- Task: Which GPs have more than 2 registered patients?
 -- YOUR ANSWER:
 
+SELECT RegisteredGP, COUNT (*) AS count_gps_patients
+FROM Patients
+GROUP BY RegisteredGP
+HAVING COUNT (*) > 2;
 
 -- -----------------------------------------------
 -- BONUS: Length of stay
@@ -65,6 +88,10 @@ GO
 -- Show: AdmissionID, Diagnosis, and LengthOfStayDays
 -- YOUR ANSWER:
 
+SELECT AdmissionID, Diagnosis,
+    DATEDIFF(DAY, AdmissionDate, DischargeDate) AS LengthOfStayDays
+  FROM Admissions
+  WHERE DischargeDate IS NOT NULL;
 
 -- =============================================
 -- ANSWERS
