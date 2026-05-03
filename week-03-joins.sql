@@ -12,7 +12,10 @@ GO
 -- Task: List all admissions showing the patient's full name alongside
 --       their AdmissionDate and Diagnosis
 -- YOUR ANSWER:
-
+SELECT p.FirstName +' '+ p.LastName as FullName , AdmissionDate, Diagnosis
+FROM Admissions a
+INNER JOIN Patients p
+ON p.PatientID = a.PatientID
 
 -- -----------------------------------------------
 -- EXERCISE 2: JOIN three tables
@@ -20,7 +23,12 @@ GO
 -- Task: Show patient name, ward name, admission date, and diagnosis
 --       for all admissions
 -- YOUR ANSWER:
-
+SELECT  p.FirstName +' '+ p.LastName as PatientName, w.WardName, a.AdmissionDate, a.Diagnosis
+FROM Patients P
+INNER JOIN Admissions a
+ON a.PatientID = p.PatientID
+INNER JOIN Wards w
+ON a.WardID = w.WardID
 
 -- -----------------------------------------------
 -- EXERCISE 3: Filter after JOIN
@@ -28,6 +36,13 @@ GO
 -- Task: Show all patients currently admitted to a Virtual Ward
 -- (DischargeDate IS NULL, WardType = 'Virtual')
 -- YOUR ANSWER:
+SELECT  p.FirstName +' '+ p.LastName as PatientName
+FROM Admissions a
+INNER JOIN Patients p
+ON a.PatientID = p.PatientID
+INNER JOIN Wards w
+ON a.WardID = w.WardID
+WHERE DischargeDate IS NULL AND WardType = 'Virtual'
 
 
 -- -----------------------------------------------
@@ -37,7 +52,11 @@ GO
 --       if they have one (patients with no admissions should still appear)
 -- Hint: Use LEFT JOIN and MAX()
 -- YOUR ANSWER:
-
+SELECT p.FirstName +' '+ p.LastName as PatientName, MAX(a.AdmissionDate) as recent_admission_date
+FROM Patients P
+LEFT JOIN Admissions a 
+ON p.PatientID = a.PatientID
+GROUP BY p.FirstName +' '+ p.LastName
 
 -- -----------------------------------------------
 -- EXERCISE 5: Observations JOIN
@@ -45,6 +64,13 @@ GO
 -- Task: Show all observations for Patient ID 5, including
 --       the observation type, value, and when it was recorded
 -- YOUR ANSWER:
+SELECT p.FirstName +' '+ p.LastName as PatientName, o.ObsType, o.ObsValue, o.ObsDateTime, o.RecordedBy
+FROM Observations o
+INNER JOIN Admissions a 
+ON  o.AdmissionID = a.AdmissionID
+INNER JOIN Patients p 
+ON p.PatientID = a.AdmissionID
+WHERE p.PatientID = 5
 
 
 -- -----------------------------------------------
@@ -53,7 +79,12 @@ GO
 -- Task: Find any patients who have been admitted more than once
 --       Show their name and admission count
 -- YOUR ANSWER:
-
+SELECT p.FirstName +' '+ p.LastName as PatientName, COUNT(*) as AdmissionCount
+FROM Admissions a 
+INNER JOIN Patients p 
+ON p.PatientID = a.PatientID
+GROUP BY p.FirstName +' '+ p.LastName
+HAVING COUNT(*) > 1
 
 -- =============================================
 -- ANSWERS
